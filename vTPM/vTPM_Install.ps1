@@ -1,19 +1,27 @@
 <#
+Written by Shawn Tooley, Seifert Technologies 
 .SYNOPSIS
-Add vTPM to VMs on vCenter along with Logging and Reboot the VMs
-Written by Shawn Tooley, Seifert Technologies  
+Power Off VM
+Add vTPM to VMs on vCenter along with Logging 
+Power On VM when Complete
 .DESCRIPTION
 Version 1.0 - Updated 2025-11-11
-This script will add a virtual TPM to a list of VMs specified in a text file and then reboot each VM to apply the changes. The script requires VMware PowerCLI to be installed and connected to the vCenter server.
+This script will add a virtual TPM to a list of VMs specified in a text file. The script requires VMware PowerCLI to be installed and connected to the vCenter server.
 #>
-# Connect to vCenter
-Connect-VIServer -Server "vc.ohiogratings.com" -User "administrator@vsphere.local" -Password "PASSWORD"
+
+# Configure PowerCLI to ignore certificate warnings
+Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
+
+$cred = Get-Credential
+
+# Connect to vCenter using the credentials
+Connect-VIServer -Server "vc.ohiogratings.com" -Credential $cred
 
 # Input file with VM names
-$vmList = Get-Content "C:\VMList.txt"
+$vmList = Get-Content "C:\Users\seitech\Documents\VMList.txt"
 
 # Log file path
-$logFile = "C:\vTPM_Add_Log.txt"
+$logFile = "C:\Users\seitech\Documents\vTPM_Add_Log.txt"
 
 # Start logging
 "Date,VMName,Status,Message" | Out-File $logFile
