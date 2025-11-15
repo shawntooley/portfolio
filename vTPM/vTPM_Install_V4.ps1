@@ -66,10 +66,11 @@ foreach ($vmName in $vmList) {
         Write-Host "Powering on $vmName..."
         Start-VM -VM $vm -Confirm:$false
 
-        "$timestamp,$vmName,Success,vTPM added and VM powered on" | Out-File $logFile -Append
+        "$timestamp,$vmName,Success,vTPM added and VM powered on,CPU:$NewCPU,Memory:${NewMemoryGB}GB" | Out-File $logFile -Append
     }
     catch {
-        "$timestamp,$vmName,Failed,$($_.Exception.Message)" | Out-File $logFile -Append
+        "$timestamp,$vmName,Failed,$($_.Exception.Message),CPU:$NewCPU,Memory:${NewMemoryGB}GB" | Out-File $logFile -Append
+
         Write-Host "Failed for $vmName $($_.Exception.Message)"
     }
 }
