@@ -13,15 +13,15 @@ Version 1.0 - Updated 2025-11-11
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
 
 # Prompt for vCenter credentials securely
-$vcServer = "vc.ohiogratings.com"
+$vcServer = "server.fqdn.com"
 $credential = Get-Credential -Message "Enter vCenter credentials"
 
 # Connect to vCenter
 Connect-VIServer -Server $vcServer -Credential $credential
 
 # Specify folder name and output file
-$folderName = "Vantage VM"
-$outputFile = "C:\Users\seitech\Documents\VMList.txt"
+$folderName = "FolderName"
+$outputFile = "C:\Path\To\Output\VM_List.txt"
 
 # Get VMs in the folder and export names
 (Get-Folder -Name $folderName | Get-VM).Name | Out-File $outputFile

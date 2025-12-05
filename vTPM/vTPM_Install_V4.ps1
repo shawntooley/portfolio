@@ -15,7 +15,7 @@ This script will add a virtual TPM to a list of VMs specified in a text file. Th
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
 
 # Prompt for vCenter credentials securely
-$vcServer = "vc.ohiogratings.com"
+$vcServer = "server.fqdn.com"
 $credential = Get-Credential -Message "Enter vCenter credentials"
 
 # Set new VM resources
@@ -27,12 +27,12 @@ $NewMemoryGB = 8
 Connect-VIServer -Server $vcServer -Credential $credential
 
 # Path to VM list file (one VM name per line)
-$vmListFile = "C:\Users\seitech\Documents\VMList.txt"
+$vmListFile = "C:\Path\To\File\VMList.txt"
 # Remove empty lines
 $vmList = Get-Content $vmListFile | Where-Object { $_.Trim() -ne "" }
 
 # Log file
-$logFile = "C:\Users\seitech\Documents\vTPM_Add_Log.txt"
+$logFile = "C:\Path\To\File\vTPM_Add_Log.txt"
 "Date,VMName,Status,Message" | Out-File $logFile
 
 foreach ($vmName in $vmList) {
