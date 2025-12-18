@@ -9,7 +9,6 @@ Deploy DHCP scopes, exclusions, reservations, and options from CSV files.
 Version 1.0 - Updated 12/18/2025
 This script reads DHCP scope configurations from CSV files and applies them to a DHCP server using the DhcpServer module. It supports creating scopes, adding exclusions, reservations, and setting server and scope options.
 #>
-# Configure PowerCLI to ignore certificate warnings
 param(
     [string]$ScopesCsv         = ".\scopes.csv",
     [string]$ExclusionsCsv     = ".\exclusions.csv",
@@ -198,3 +197,4 @@ Write-Host "`nDone." -ForegroundColor Green
 # Verification suggestions
 Write-Host "Verify scopes: Get-DhcpServerv4Scope"
 Write-Host "Verify options: Get-DhcpServerv4OptionValue"
+Write-Host "Check leases after client renew: Get-DhcpServerv4Lease"
